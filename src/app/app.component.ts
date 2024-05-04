@@ -1,26 +1,36 @@
-﻿// Директива import импортирует функциональность модуля angular/core,
-// предоставляя доступ к функции декоратора @Component.
-import { Component } from "@angular/core";
+﻿import { Component } from "@angular/core";
 
-// Функция-декоратор @Component ассоциирует метаданные с классом компонента AppComponent.
-// Декоратор @Component позволяет идентифицировать класс AppComponent как компонент.
 @Component({
   selector: 'my-app',
   template: `
     <h1>Bill Gates</h1>
     <img src="/assets/images.jpg" alt="Bill Gates" style="width: 300px; height: 300px;">
-    <bill-gates-bio></bill-gates-bio>
-    <bill-gates-quotes [quotes]="quotes"></bill-gates-quotes>
-    <bill-gates-links [links]="links"></bill-gates-links>
     <div>
-      <h2>Add Quote:</h2>
-      <input type="text" [(ngModel)]="newQuote">
-      <button (click)="addQuote()">Add Quote</button>
+      <button (click)="showBio()">Show Bio</button>
+      <button (click)="showQuotes()">Show Quotes</button>
+      <button (click)="showLinks()">Show Links</button>
+      <button (click)="showAdd()">Add</button>
     </div>
-    <div>
-      <h2>Add Link:</h2>
-      <input type="text" [(ngModel)]="newLink">
-      <button (click)="addLink()">Add Link</button>
+    <div *ngIf="displayMode === 'bio'">
+      <bill-gates-bio></bill-gates-bio>
+    </div>
+    <div *ngIf="displayMode === 'quotes'">
+      <bill-gates-quotes [quotes]="quotes"></bill-gates-quotes>
+    </div>
+    <div *ngIf="displayMode === 'links'">
+      <bill-gates-links [links]="links"></bill-gates-links>
+    </div>
+    <div *ngIf="displayMode === 'add'">
+      <div>
+        <h2>Add Quote:</h2>
+        <input type="text" [(ngModel)]="newQuote">
+        <button (click)="addQuote()">Add Quote</button>
+      </div>
+      <div>
+        <h2>Add Link:</h2>
+        <input type="text" [(ngModel)]="newLink">
+        <button (click)="addLink()">Add Link</button>
+      </div>
     </div>
   `,
   styles: [`
@@ -36,8 +46,6 @@ import { Component } from "@angular/core";
     }
   `]
 })
-
-// Экспортируется класс компонента AppComponent, в котором определяется модель name.
 export class AppComponent {
   newQuote: string = "";
   newLink: string = "";
@@ -54,6 +62,23 @@ export class AppComponent {
     "https://www.gatesnotes.com/",
     "https://twitter.com/billgates"
   ];
+  displayMode: string = 'bio';
+
+  showBio() {
+    this.displayMode = 'bio';
+  }
+
+  showQuotes() {
+    this.displayMode = 'quotes';
+  }
+
+  showLinks() {
+    this.displayMode = 'links';
+  }
+
+  showAdd() {
+    this.displayMode = 'add';
+  }
 
   addQuote() {
     if (this.newQuote.trim() !== "") {
@@ -69,4 +94,3 @@ export class AppComponent {
     }
   }
 }
-
