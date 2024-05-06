@@ -25,4 +25,8 @@ import { Component, Input } from "@angular/core";
 // Экспортируется класс компонента AppComponent, в котором определяется модель name.
 export class QuotesComponent {
   @Input() quotes: string[] = [];
+
+  updateQuotes(quotes: string[]) : void {
+    this.quotes = quotes;
+  }
 }

@@ -25,4 +25,8 @@ import { Component, Input } from "@angular/core";
 // Экспортируется класс компонента AppComponent, в котором определяется модель name.
 export class LinksComponent {
   @Input() links: string[] = [];
+
+  updateLinks(links: string[]) : void {
+    this.links = links;
+  }
 }

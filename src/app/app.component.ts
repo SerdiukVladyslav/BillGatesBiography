@@ -1,4 +1,6 @@
-﻿import { Component } from "@angular/core";
+﻿import { Component, ViewChild } from "@angular/core";
+import { QuotesComponent } from './quotes.component';
+import { LinksComponent } from './links.component';
 
 @Component({
   selector: 'my-app',
@@ -47,6 +49,12 @@
   `]
 })
 export class AppComponent {
+  @ViewChild(QuotesComponent)
+  quotesComponent: QuotesComponent;
+
+  @ViewChild(LinksComponent)
+  linksComponent: LinksComponent;
+
   newQuote: string = "";
   newLink: string = "";
   quotes: string[] = [
@@ -84,6 +92,7 @@ export class AppComponent {
     if (this.newQuote.trim() !== "") {
       this.quotes.push(this.newQuote);
       this.newQuote = "";
+      this.quotesComponent.updateQuotes(this.quotes);
     }
   }
 
@@ -91,6 +100,7 @@ export class AppComponent {
     if (this.newLink.trim() !== "") {
       this.links.push(this.newLink);
       this.newLink = "";
+      this.linksComponent.updateLinks(this.links);
     }
   }
 }
